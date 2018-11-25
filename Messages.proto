@@ -1,0 +1,48 @@
+syntax='proto3';
+
+enum BodyType {
+    NONE = 0; //Used for Ping/Pong
+    REQUEST_SLOT = 1; //Used to get a slot in the Lobby
+    PLAYER_JOIN = 2; //Sent to all players when a new player joins
+    PLAYER_DISCONNECT = 3; //Sent to all players when a player timesout
+    LOBBY_INFO = 4; //Sent after a request for a slot successeds 
+    PLAYER_READY = 5;
+    WORLD_INFO = 6;
+    GAME_START = 7;
+    GAME_END = 8;
+    PLAYER_LOCATION = 9;
+    PLAYER_ACTION = 10;
+}
+
+enum ActionType {
+    FIRE_GUN = 0;
+    DESPAWN_SHIP = 1;
+    SPAWN_SHIP = 2;
+}
+
+message PlayerInfo {
+    uint32 id = 1;
+    string name = 2;
+    uint32 score = 3;    
+}
+
+message LobbyInfo {
+    uint32 player_id = 1;
+    repeated PlayerInfo players = 2;
+}
+
+message PlayerLocation {
+    uint32 player_id = 1;
+    float x = 2;
+    float y = 3;
+    float r = 4;
+}
+
+message Packet {
+    BodyType body_type = 1;
+    oneof body {
+        PlayerInfo player_info = 2;
+        LobbyInfo lobby_info = 3;
+        PlayerLocation player_location = 4;
+    }
+}
