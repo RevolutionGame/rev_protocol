@@ -1,0 +1,21 @@
+syntax='proto3';
+
+enum BodyType {
+    NONE = 0; //Used for Ping/Pong
+    REQUEST_SLOT = 1; //Used to get a slot in the Lobby
+    PLAYER_JOIN = 2; //Sent to all players when a new player joins
+    PLAYER_DISCONNECT = 3; //Sent to all players when a player timesout
+    LOBBY_INFO = 4; //Sent after a request for a slot successeds 
+}
+
+message PlayerInfo {
+    uint32 id = 1;
+    string name = 2;
+    uint32 score = 3;    
+}
+
+message LobbyInfo {
+    uint32 playerID = 1;
+    repeated PlayerInfo players = 2;
+}
+
