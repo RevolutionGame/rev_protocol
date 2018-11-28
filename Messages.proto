@@ -18,9 +18,45 @@ enum ActionType {
     FIRE_GUN = 0;
     DESPAWN_SHIP = 1;
     SPAWN_SHIP = 2;
-		HIT_ASTEROID = 3;
-		HIT_PLAYER = 4;
+	HIT_ASTEROID = 3;
+	HIT_PLAYER = 4;
 }
+
+enum ObjectType{
+    ASTEROID_BIG = 0;
+    ASTEROID_MEDIUM = 1;
+    ASTEROID_SMALL = 2;
+}
+
+message PlayerAction{
+    uint32 player_id = 1;
+    ActionType action_type = 2;
+    oneof action{
+        FireGun fire_gun = 0;
+        DespawnShip despawn_ship = 1;
+        SpawnShip spawn_ship = 2;
+        HitAsteroid hit_asteroid = 3;
+        HitPlayer hit_player = 4;
+    }
+}
+
+message FireGun{
+}
+
+message DespawnShip{
+}
+
+message SpawnShip{
+}
+
+message HitAsteroid{
+    uint32 hit_asteroid_id = 1;
+}
+
+message HitPlayer{
+    uint32 hit_player_id = 1;
+}
+
 
 message PlayerInfo {
     uint32 id = 1;
@@ -43,9 +79,10 @@ message PlayerLocation {
 
 message ObjectLocation {
 		uint32 object_id = 1;
-		float x = 2;
-		float y = 3;
-		float r = 4;
+        ObjectType object_type = 2;
+		float x = 3;
+		float y = 4;
+		float r = 5;
 }
 
 message WorldInfo {
@@ -58,6 +95,7 @@ message Packet {
         PlayerInfo player_info = 2;
         LobbyInfo lobby_info = 3;
         PlayerLocation player_location = 4;
-				WorldInfo world_info = 5;
+		WorldInfo world_info = 5;
+        PlayerAction player_action = 6;
     }
 }
