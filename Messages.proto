@@ -51,9 +51,10 @@ message LobbyInfo {
 
 message PlayerLocation {
     uint32 player_id = 1;
-    float x = 2;
-    float y = 3;
-    float r = 4;
+    uint32 health = 2;
+    float x = 3;
+    float y = 4;
+    float r = 5;
 }
 
 message ObjectLocation {
@@ -62,6 +63,8 @@ message ObjectLocation {
 		float x = 3;
 		float y = 4;
 		float r = 5;
+
+        uint32 health = 6;
 }
 
 message WorldInfo {
